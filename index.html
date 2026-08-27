@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilmu Hol — Ariza anketasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Serif:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b2e26;
+    --bg-soft: #0f3a2f;
+    --panel: #ffffff;
+    --panel-soft: #f6f4ee;
+    --ink: #16241f;
+    --ink-soft: #4c5c56;
+    --gold: #c9a227;
+    --gold-soft: #e7cf7f;
+    --green: #14523f;
+    --green-light: #1c6b50;
+    --border: #e3ddcb;
+    --danger: #b3422e;
+    --ok: #1f7a4d;
+    --radius: 16px;
+    --shadow: 0 20px 50px -20px rgba(11,46,38,.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Manrope', system-ui, sans-serif;
+    color:var(--ink);
+    background:var(--panel-soft);
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:'Noto Serif', Georgia, serif;
+    margin:0 0 .5em;
+    letter-spacing:-.01em;
+  }
+  p{margin:0 0 1em;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  .section-head{max-width:640px;margin:0 auto 32px;text-align:center;}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.2rem);color:var(--ink);}
+  .section-head p{color:var(--ink-soft);}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:15px 28px;border-radius:999px;
+    font-weight:700;font-size:.98rem;text-decoration:none;
+    border:1px solid transparent;cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--gold);color:var(--green);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(201,162,39,.55);}
+
+  /* VIDEO */
+  .video-wrap{
+    position:relative;width:100%;aspect-ratio:16/9;
+    background:var(--bg);border-radius:24px;overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .video-wrap video{width:100%;height:100%;object-fit:cover;display:block;background:#000;}
+
+  /* FORM */
+  .form-shell{
+    background:var(--panel);border:1px solid var(--border);
+    border-radius:24px;box-shadow:var(--shadow);
+    padding:40px;
+  }
+  .form-shell h2{color:var(--ink);}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 24px;margin-top:28px;}
+  .field{display:flex;flex-direction:column;gap:7px;}
+  .field.full{grid-column:1/-1;}
+  .field label{
+    font-size:.86rem;font-weight:700;color:var(--ink);
+  }
+  .field label .req{color:var(--danger);margin-left:2px;}
+  .field input,
+  .field select,
+  .field textarea{
+    font:inherit;padding:12px 14px;border-radius:10px;
+    border:1.5px solid var(--border);background:#fff;color:var(--ink);
+    outline:none;transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{
+    border-color:var(--green-light);
+    box-shadow:0 0 0 3px rgba(28,107,80,.14);
+  }
+  .field textarea{resize:vertical;min-height:88px;}
+  .field .hint{font-size:.78rem;color:var(--ink-soft);}
+  .field .err{font-size:.78rem;color:var(--danger);display:none;}
+  .field.invalid input,
+  .field.invalid select,
+  .field.invalid textarea{border-color:var(--danger);}
+  .field.invalid .err{display:block;}
+
+  .form-submit{
+    margin-top:32px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  }
+  .form-note{font-size:.82rem;color:var(--ink-soft);max-width:38ch;}
+  #formMsg{
+    margin-top:18px;padding:14px 16px;border-radius:12px;
+    font-size:.92rem;font-weight:600;display:none;
+  }
+  #formMsg.ok{display:block;background:rgba(31,122,77,.1);color:var(--ok);border:1px solid rgba(31,122,77,.3);}
+  #formMsg.bad{display:block;background:rgba(179,66,46,.1);color:var(--danger);border:1px solid rgba(179,66,46,.3);}
+
+  @media (max-width:760px){
+    .form-grid{grid-template-columns:1fr;}
+    .form-shell{padding:26px;}
+  }
+</style>
+</head>
+<body>
+
+<section style="padding:40px 0 0;">
+  <div class="wrap" style="max-width:760px;">
+    <!-- Video faylni shu papkaga (Ilmu-hol-landing) "video.mp4" nomi bilan qo'ying, yoki src'ni o'z fayl nomingizga o'zgartiring -->
+    <div class="video-wrap">
+      <video controls preload="metadata">
+        <source src="video.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<section id="anketa" style="padding:56px 0;">
+  <div class="wrap" style="max-width:760px;">
+    <div class="section-head">
+      <h2>Anketani to'ldiring</h2>
+      <p>Yulduzcha (*) bilan belgilangan maydonlar majburiy.</p>
+    </div>
+
+    <form class="form-shell" id="applyForm" novalidate>
+      <div class="form-grid">
+
+        <div class="field full" data-req>
+          <label>To'liq ismingiz<span class="req">*</span></label>
+          <input type="text" name="full_name" placeholder="Familiya Ism Sharif" required>
+          <span class="err">Majburiy maydon</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Tug'ilgan sanangiz<span class="req">*</span></label>
+          <input type="date" name="birth_date" required>
+          <span class="err">Majburiy maydon</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Telefon raqamingiz<span class="req">*</span></label>
+          <input type="tel" name="phone" placeholder="+998 90 123 45 67" required>
+          <span class="err">Majburiy maydon</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Telegram (username)<span class="req">*</span></label>
+          <input type="text" name="telegram" placeholder="@username" required>
+          <span class="err">Majburiy maydon</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Ota-onangiz yoki vasiyingizning aloqa raqami<span class="req">*</span></label>
+          <input type="tel" name="parent_phone" placeholder="+998 90 123 45 67" required>
+          <span class="err">Majburiy maydon</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Ota-onangiz yoki vasiyingizning ismi<span class="req">*</span></label>
+          <input type="text" name="parent_name" placeholder="Familiya Ism Sharif" required>
+          <span class="err">Majburiy maydon</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Hozirda qayerda ta'lim olyapsiz?<span class="req">*</span></label>
+          <select name="education_place" required>
+            <option value="" selected disabled>Tanlang</option>
+            <option>Maktabni bitirdim</option>
+            <option>Litsey</option>
+            <option>Kollej</option>
+            <option>Texnikum</option>
+            <option>Universitet (1-kurs)</option>
+            <option>Boshqa</option>
+          </select>
+          <span class="err">Tanlang</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Arab tilini bilish darajasi<span class="req">*</span></label>
+          <select name="arabic_level" required>
+            <option value="" selected disabled>Tanlang</option>
+            <option>Bilmayman</option>
+            <option>O'qiy olaman</option>
+          </select>
+          <span class="err">Tanlang</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Qur'on tilovati darajasi<span class="req">*</span></label>
+          <select name="quran_level" required>
+            <option value="" selected disabled>Tanlang</option>
+            <option>Bilmayman</option>
+            <option>O'qiy olaman</option>
+          </select>
+          <span class="err">Tanlang</span>
+        </div>
+
+        <div class="field full" data-req>
+          <label>Qanday diniy mazmundagi kitoblar o'qigansiz<span class="req">*</span></label>
+          <textarea name="religious_books" placeholder="O'qigan kitoblaringizni sanab o'ting" required></textarea>
+          <span class="err">Majburiy maydon</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Yotoqxonada yashaysizmi yoki alohida joyingiz bormi?<span class="req">*</span></label>
+          <select name="dorm" required>
+            <option value="" selected disabled>Tanlang</option>
+            <option>Yotoqxonada yashayman</option>
+            <option>Alohida joyim bor</option>
+          </select>
+          <span class="err">Tanlang</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Sog'lig'ingiz bilan bog'liq, ta'lim olishga to'sqinlik qiladigan muammo bormi?<span class="req">*</span></label>
+          <select name="health_issue" required>
+            <option value="" selected disabled>Tanlang</option>
+            <option>Yo'q</option>
+            <option>Ha</option>
+          </select>
+          <span class="err">Tanlang</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Xorijga chiqish pasportingiz bormi?<span class="req">*</span></label>
+          <select name="passport" required>
+            <option value="" selected disabled>Tanlang</option>
+            <option>Ha</option>
+            <option>Yo'q</option>
+          </select>
+          <span class="err">Tanlang</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>Qaysi bosqichgacha o'qishni rejalashtiryapsiz?<span class="req">*</span></label>
+          <select name="study_stage" required>
+            <option value="" selected disabled>Tanlang</option>
+            <option>Bakalavriat</option>
+            <option>Magistratura</option>
+            <option>Doktorantura</option>
+          </select>
+          <span class="err">Tanlang</span>
+        </div>
+
+        <div class="field" data-req>
+          <label>O'qishni qachondan boshlamoqchisiz<span class="req">*</span></label>
+          <input type="text" name="start_date" placeholder="Masalan: 2026-yil sentyabr" required>
+          <span class="err">Majburiy maydon</span>
+        </div>
+
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" class="btn btn-primary" id="submitBtn">Anketani yuborish</button>
+        <span class="form-note">Yuborilgan ma'lumotlar faqat qabul jarayoni uchun ishlatiladi.</span>
+      </div>
+      <div id="formMsg"></div>
+    </form>
+  </div>
+</section>
+
+<script>
+// --- Bitrix24 webhook konfiguratsiyasi ---
+// Webhook URL'ni shu yerga qo'ying, masalan:
+// const BITRIX_WEBHOOK_URL = 'https://your-domain.bitrix24.kz/rest/1/xxxxxxxxxxxxxxxx/crm.lead.add.json';
+const BITRIX_WEBHOOK_URL = '';
+
+const form = document.getElementById('applyForm');
+const msg = document.getElementById('formMsg');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  msg.className = '';
+  msg.textContent = '';
+
+  let valid = true;
+  form.querySelectorAll('[data-req]').forEach(field => {
+    const input = field.querySelector('input, select, textarea');
+    const filled = input.value && input.value.trim() !== '';
+    field.classList.toggle('invalid', !filled);
+    if (!filled) valid = false;
+  });
+
+  if (!valid) {
+    msg.className = 'bad';
+    msg.textContent = 'Iltimos, barcha majburiy (*) maydonlarni to\'ldiring.';
+    msg.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  if (!BITRIX_WEBHOOK_URL) {
+    console.log('Anketa ma\'lumotlari (webhook hali ulanmagan):', data);
+    msg.className = 'ok';
+    msg.textContent = 'Rahmat! Anketangiz qabul qilindi (demo rejim — CRM ulanmagan).';
+    form.reset();
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Yuborilmoqda...';
+
+  try {
+    const comments = [
+      `Tug'ilgan sana: ${data.birth_date}`,
+      `Telegram: ${data.telegram}`,
+      `Ota-ona/vasiy ismi: ${data.parent_name}`,
+      `Ota-ona/vasiy raqami: ${data.parent_phone}`,
+      `Ta'lim joyi: ${data.education_place}`,
+      `Arab tili darajasi: ${data.arabic_level}`,
+      `Qur'on tilovati darajasi: ${data.quran_level}`,
+      `O'qigan kitoblari: ${data.religious_books}`,
+      `Yashash sharoiti: ${data.dorm}`,
+      `Sog'liq muammosi: ${data.health_issue}`,
+      `Xorijga chiqish pasporti: ${data.passport}`,
+      `Rejalashtirilgan bosqich: ${data.study_stage}`,
+      `O'qishni boshlash vaqti: ${data.start_date}`,
+    ].join('\n');
+
+    const res = await fetch(BITRIX_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        fields: {
+          TITLE: `Ilmu Hol anketasi — ${data.full_name}`,
+          NAME: data.full_name,
+          PHONE: [{VALUE: data.phone, VALUE_TYPE: 'WORK'}],
+          COMMENTS: comments,
+        }
+      })
+    });
+
+    const json = await res.json();
+    if (json.result) {
+      msg.className = 'ok';
+      msg.textContent = 'Rahmat! Anketangiz muvaffaqiyatli yuborildi.';
+      form.reset();
+    } else {
+      throw new Error(json.error_description || 'Noma\'lum xatolik');
+    }
+  } catch (err) {
+    msg.className = 'bad';
+    msg.textContent = 'Xatolik yuz berdi: ' + err.message + '. Iltimos, qayta urinib ko\'ring.';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Anketani yuborish';
+  }
+});
+</script>
+
+</body>
+</html>
