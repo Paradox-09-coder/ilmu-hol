@@ -277,9 +277,7 @@
 
 <script>
 // --- Bitrix24 webhook konfiguratsiyasi ---
-// Webhook URL'ni shu yerga qo'ying, masalan:
-// const BITRIX_WEBHOOK_URL = 'https://your-domain.bitrix24.kz/rest/1/xxxxxxxxxxxxxxxx/crm.lead.add.json';
-const BITRIX_WEBHOOK_URL = '';
+const BITRIX_WEBHOOK_URL = 'https://akademiya.bitrix24.kz/rest/1/0wv1hs2x9cxk9cfp/crm.lead.add.json';
 
 const form = document.getElementById('applyForm');
 const msg = document.getElementById('formMsg');
@@ -342,6 +340,8 @@ form.addEventListener('submit', async (e) => {
         fields: {
           TITLE: `Ilmu Hol anketasi — ${data.full_name}`,
           NAME: data.full_name,
+          STATUS_ID: 'NEW',
+          SOURCE_ID: 'WEB',
           PHONE: [{VALUE: data.phone, VALUE_TYPE: 'WORK'}],
           COMMENTS: comments,
         }
