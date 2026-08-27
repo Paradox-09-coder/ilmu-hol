@@ -64,7 +64,7 @@
     background:var(--bg);border-radius:24px;overflow:hidden;
     box-shadow:var(--shadow);
   }
-  .video-wrap video{width:100%;height:100%;object-fit:cover;display:block;background:#000;}
+  .video-wrap iframe{width:100%;height:100%;display:block;border:0;}
 
   /* FORM */
   .form-shell{
@@ -122,11 +122,8 @@
 
 <section style="padding:40px 0 0;">
   <div class="wrap" style="max-width:760px;">
-    <!-- Video faylni shu papkaga (Ilmu-hol-landing) "video.mp4" nomi bilan qo'ying, yoki src'ni o'z fayl nomingizga o'zgartiring -->
     <div class="video-wrap">
-      <video controls preload="metadata">
-        <source src="video.mp4" type="video/mp4">
-      </video>
+      <iframe src="https://www.youtube.com/embed/_3T3EX29FJ8" title="ILMI HOL kursi bo'yicha barcha savollarga javoblar" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
   </div>
 </section>
