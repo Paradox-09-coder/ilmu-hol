@@ -205,7 +205,8 @@
           <select name="quran_level" required>
             <option value="" selected disabled>Tanlang</option>
             <option>Bilmayman</option>
-            <option>O'qiy olaman</option>
+            <option>Kichik suralar yod olganman</option>
+            <option>1-2-poralarni yoki unda Ko'p yod olganman</option>
           </select>
           <span class="err">Tanlang</span>
         </div>
@@ -220,8 +221,11 @@
           <label>Yotoqxonada yashaysizmi yoki alohida joyingiz bormi?<span class="req">*</span></label>
           <select name="dorm" required>
             <option value="" selected disabled>Tanlang</option>
-            <option>Yotoqxonada yashayman</option>
-            <option>Alohida joyim bor</option>
+            <option>Yotoqxonada</option>
+            <option>Ijarada</option>
+            <option>O'z uyimda</option>
+            <option>Qarindoshlarimnikida</option>
+            <option>Other:</option>
           </select>
           <span class="err">Tanlang</span>
         </div>
@@ -336,11 +340,15 @@ form.addEventListener('submit', async (e) => {
     };
     const quranMap = {
       'Bilmayman': 61,
-      "O'qiy olaman": 63,
+      'Kichik suralar yod olganman': 63,
+      "1-2-poralarni yoki unda Ko'p yod olganman": 65,
     };
     const dormMap = {
-      'Yotoqxonada yashayman': 67,
-      'Alohida joyim bor': 75,
+      'Yotoqxonada': 67,
+      'Ijarada': 69,
+      "O'z uyimda": 71,
+      'Qarindoshlarimnikida': 73,
+      'Other:': 75,
     };
     const healthMap = {
       'Ha': 77,
