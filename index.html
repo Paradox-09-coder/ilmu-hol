@@ -322,7 +322,12 @@ form.addEventListener('submit', async (e) => {
       'Texnikum': 51,
       'Universitet (1-kurs)': 53,
       'Hozirda ishlayman': 55,
-      'Boshqa': 55,
+      'Boshqa': 511,
+    };
+    const studyStageMap = {
+      'Bakalavriat': 513,
+      'Magistratura': 515,
+      'Doktorantura': 517,
     };
     const arabicMap = {
       'Bilmayman': 57,
@@ -367,7 +372,7 @@ form.addEventListener('submit', async (e) => {
           UF_CRM_1787566268: healthMap[data.health_issue] || null,
           UF_CRM_1787566293: passportMap[data.passport] || null,
           UF_CRM_1787992862: data.start_date,
-          COMMENTS: `O'qish bosqichi: ${data.study_stage}`,
+          UF_CRM_1787994748: studyStageMap[data.study_stage] || null,
         }
       })
     });
