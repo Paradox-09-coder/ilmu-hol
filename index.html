@@ -315,21 +315,35 @@ form.addEventListener('submit', async (e) => {
   submitBtn.textContent = 'Yuborilmoqda...';
 
   try {
-    const comments = [
-      `Tug'ilgan sana: ${data.birth_date}`,
-      `Telegram: ${data.telegram}`,
-      `Ota-ona/vasiy ismi: ${data.parent_name}`,
-      `Ota-ona/vasiy raqami: ${data.parent_phone}`,
-      `Ta'lim joyi: ${data.education_place}`,
-      `Arab tili darajasi: ${data.arabic_level}`,
-      `Qur'on tilovati darajasi: ${data.quran_level}`,
-      `O'qigan kitoblari: ${data.religious_books}`,
-      `Yashash sharoiti: ${data.dorm}`,
-      `Sog'liq muammosi: ${data.health_issue}`,
-      `Xorijga chiqish pasporti: ${data.passport}`,
-      `Rejalashtirilgan bosqich: ${data.study_stage}`,
-      `O'qishni boshlash vaqti: ${data.start_date}`,
-    ].join('\n');
+    const educationMap = {
+      'Maktabni bitirdim': 45,
+      'Litsey': 47,
+      'Kollej': 49,
+      'Texnikum': 51,
+      'Universitet (1-kurs)': 53,
+      'Hozirda ishlayman': 55,
+      'Boshqa': 55,
+    };
+    const arabicMap = {
+      'Bilmayman': 57,
+      "O'qiy olaman": 59,
+    };
+    const quranMap = {
+      'Bilmayman': 61,
+      "O'qiy olaman": 63,
+    };
+    const dormMap = {
+      'Yotoqxonada yashayman': 67,
+      'Alohida joyim bor': 75,
+    };
+    const healthMap = {
+      'Ha': 77,
+      "Yo'q": 79,
+    };
+    const passportMap = {
+      'Ha': 83,
+      "Yo'q": 85,
+    };
 
     const res = await fetch(BITRIX_WEBHOOK_URL, {
       method: 'POST',
@@ -338,10 +352,22 @@ form.addEventListener('submit', async (e) => {
         fields: {
           TITLE: `Ilmu Hol anketasi — ${data.full_name}`,
           NAME: data.full_name,
+          BIRTHDATE: data.birth_date,
           STATUS_ID: 'NEW',
           SOURCE_ID: 'WEB',
           PHONE: [{VALUE: data.phone, VALUE_TYPE: 'WORK'}],
-          COMMENTS: comments,
+          UF_CRM_1787815478: data.telegram,
+          UF_CRM_1787565999: data.parent_name,
+          UF_CRM_1787566012: data.parent_phone,
+          UF_CRM_1787566072: educationMap[data.education_place] || null,
+          UF_CRM_1787566103: arabicMap[data.arabic_level] || null,
+          UF_CRM_1787566184: quranMap[data.quran_level] || null,
+          UF_CRM_1787566196: data.religious_books,
+          UF_CRM_1787566239: dormMap[data.dorm] || null,
+          UF_CRM_1787566268: healthMap[data.health_issue] || null,
+          UF_CRM_1787566293: passportMap[data.passport] || null,
+          UF_CRM_1787992862: data.start_date,
+          COMMENTS: `O'qish bosqichi: ${data.study_stage}`,
         }
       })
     });
