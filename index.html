@@ -175,7 +175,7 @@
 
         <div class="field" data-req>
           <label>Telefon raqamingiz<span class="req">*</span></label>
-          <input type="tel" name="phone" placeholder="+998 90 123 45 67" required>
+          <input type="tel" name="phone" placeholder="+998 90 123 45 67" value="+998 " inputmode="tel" required>
           <span class="err">Majburiy maydon</span>
         </div>
 
@@ -187,7 +187,7 @@
 
         <div class="field" data-req>
           <label>Ota-onangiz yoki vasiyingizning aloqa raqami<span class="req">*</span></label>
-          <input type="tel" name="parent_phone" placeholder="+998 90 123 45 67" required>
+          <input type="tel" name="parent_phone" placeholder="+998 90 123 45 67" value="+998 " inputmode="tel" required>
           <span class="err">Majburiy maydon</span>
         </div>
 
@@ -330,6 +330,12 @@ const form = document.getElementById('applyForm');
 const msg = document.getElementById('formMsg');
 const submitBtn = document.getElementById('submitBtn');
 const successModal = document.getElementById('successModal');
+
+form.querySelectorAll('input[name=phone], input[name=parent_phone]').forEach(input => {
+  input.addEventListener('input', () => {
+    input.value = input.value.replace(/[^\d+ ]/g, '');
+  });
+});
 
 function goToTelegram() {
   const text = "Assalomu alaykum! Formani to'ldirdim, to'liq ma'lumot bersangiz!";
